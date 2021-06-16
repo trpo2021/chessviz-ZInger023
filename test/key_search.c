@@ -14,9 +14,9 @@ CTEST(key_search, correct_input)
     int expect = 5;
     int result = 0;
 
-    key_search(input_str, 5);
+    key_search(*input_str, 5);
     if (length == 5 && countN == 2 && countc == 0 && countn == 0 && county == 1
-        && countA == 0 && count0 == 1 &&) {
+        && countA == 0 && count0 == 1) {
         result = 5;
     }
     ASSERT_EQUAL(expect, result);
