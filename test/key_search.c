@@ -3,7 +3,7 @@
 
 CTEST(key_search, correct_input)
 {
-    char input_str[] = "main -l5 -N2 -O -y \n";
+    char* input_str[] = "main -l5 -N2 -O -y \n";
     int countN = 1;
     int countc = 0;
     int countn = 0;
