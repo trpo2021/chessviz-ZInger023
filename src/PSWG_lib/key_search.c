@@ -70,11 +70,11 @@ void key_search(char** argv, int argc)
         }
     }
     int temp = if_error(length, countc, countn, countA, count0, key_count);
-if (temp == 0) {
-    for (int i = 0; i < countN; i++) {
-        pswd = gen_pswd(length, countc, countn, county, countA, count0);
-        printf("%s\n", pswd);
-        free(pswd);
-    }
+    if (temp == 0) {
+        for (int i = 0; i < countN; i++) {
+            pswd = gen_pswd(length, countc, countn, county, countA, count0);
+            printf("%s\n", pswd);
+            free(pswd);
+        }
     }
 }
