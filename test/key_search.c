@@ -11,11 +11,12 @@ CTEST(key_search, correct_input)
     int countA = 0;
     int count0 = 0;
     int length = 10;
-    int expected = 5;
+    int expect = 5;
+    int result = 0;
 
-    is_str_ok(input_str, input_str2);
+    key_search(input_str, 5);
     if (length == 5 && countN == 2 && countc == 0 && countn == 0 && county == 1
-        && countA == 0 && count0 == 1 && counth == 0) {
+        && countA == 0 && count0 == 1 &&) {
         result = 5;
     }
     ASSERT_EQUAL(expect, result);
