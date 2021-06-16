@@ -1,0 +1,9 @@
+
+
+*.o
+*.d
+*.a
+.*.swp
+main
+bin/PSWG_test
+bin/PSWG
