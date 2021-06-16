@@ -1,67 +1,57 @@
 APP_NAME = PSWG
-APP_NAME_TEST = PSWG_test
 LIB_NAME = PSWG_lib
+APP_TEST_NAME = PSWG_test
 
 CFLAGS = -Wall -Wextra -Werror
-CPPFLAGS = -I src -MP -MMD
-CPPFLAGS_TEST = -I thirdparty -I src -MP -MMD
-
-LDFLAGS =
-LDLIBS =
+CPPFLAGS = -I thirdparty -I src -MP -MMD
 
 BIN_DIR = bin
 OBJ_DIR = obj
 SRC_DIR = src
 TEST_DIR = test
 
-APP_PATH_TEST = $(BIN_DIR)/$(APP_NAME_TEST)
 APP_PATH = $(BIN_DIR)/$(APP_NAME)
 LIB_PATH = $(OBJ_DIR)/$(SRC_DIR)/$(LIB_NAME)/$(LIB_NAME).a
+TEST_PATH = $(BIN_DIR)/$(TEST_DIR)/$(APP_TEST_NAME)
 
 SRC_EXT = c
 
 APP_SOURCES = $(shell find $(SRC_DIR)/$(APP_NAME) -name '*.$(SRC_EXT)')
 APP_OBJECTS = $(APP_SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(SRC_DIR)/%.o)
-
-APP_SOURCES_TEST = $(shell find $(TEST_DIR) -name '*.$(SRC_EXT)')
-APP_OBJECTS_TEST = $(APP_SOURCES_TEST:$(TEST_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(TEST_DIR)/%.o)
-
+APP_TEST_SOURCES = $(shell find $(TEST_DIR) -name '*.$(SRC_EXT)')
+APP_TEST_OBJECTS = $(APP_TEST_SOURCES:$(TEST_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(TEST_DIR)/%.o)
 
 LIB_SOURCES = $(shell find $(SRC_DIR)/$(LIB_NAME) -name '*.$(SRC_EXT)')
 LIB_OBJECTS = $(LIB_SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(SRC_DIR)/%.o)
 
 DEPS = $(APP_OBJECTS:.o=.d) $(LIB_OBJECTS:.o=.d)
-DEPS_TEST = $(APP_OBJECTS_TEST:.o=.d) $(LIB_OBJECTS:.o=.d)
 
-.PHONY: all
+.PHONY: all clean test
+
 all: $(APP_PATH)
 
 -include $(DEPS)
 
 $(APP_PATH): $(APP_OBJECTS) $(LIB_PATH)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS) $(LDLIBS) -lm
+	gcc $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lm
 
 $(LIB_PATH): $(LIB_OBJECTS)
 	ar rcs $@ $^
 
 $(OBJ_DIR)/%.o: %.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+	gcc -c $(CFLAGS) $(CPPFLAGS) $< -o $@
 
-.PHONY: clean
+test: $(TEST_PATH)
+
+$(OBJ_DIR)/$(TEST_DIR)/%.o: %.c
+	gcc -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+$(TEST_PATH): $(APP_TEST_OBJECTS) $(LIB_PATH)
+	gcc $(CFLAGS) $(CPPFLAGS) $^ -o $@ -lm
+
+
 clean:
-	$(RM) $(APP_PATH) $(LIB_PATH)
+	$(RM) $(APP_PATH) $(LIB_PATH) $(TEST_PATH)
 	find $(OBJ_DIR) -name '*.o' -exec $(RM) '{}' \;
 	find $(OBJ_DIR) -name '*.d' -exec $(RM) '{}' \;
-
-.PHONY: test
-test: $(APP_PATH_TEST)
-
--include $(DEPS_TEST)
-
-$(APP_PATH_TEST): $(APP_OBJECTS_TEST) $(LIB_PATH)
-	$(CC) $(CFLAGS) $(CPPFLAGS_TEST) $^ -o $@ $(LDFLAGS) $(LDLIBS) -lm
-
-$(OBJ_DIR)/$(TEST_DIR)/%.o: $(TEST_DIR)/%.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS_TEST) $< -o $@ $(LDLIBS)
-
 
