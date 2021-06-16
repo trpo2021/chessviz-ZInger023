@@ -27,5 +27,13 @@ CTEST(key_search, correct_input)
         && countA == 0 && count0 == 1) {
         result = 5;
     }
+    printf("%d\n", length);
+    printf("%d\n", countN);
+    printf("%d\n", countc);
+    printf("%d\n", countn);
+    printf("%d\n", county);
+    printf("%d\n", countA);
+    printf("%d\n", count0);
+    
     ASSERT_EQUAL(expect, result);
 }
