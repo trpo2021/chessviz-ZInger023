@@ -34,6 +34,6 @@ CTEST(key_search, correct_input)
     printf("%d\n", county);
     printf("%d\n", countA);
     printf("%d\n", count0);
-    
+
     ASSERT_EQUAL(expect, result);
 }
