@@ -13,16 +13,16 @@ int if_error(
             && (countn != 0))) //Проверка на наличие взаимоисключающих ключей
     {
         printf("Error : You have entered mutually exclusive keys\n");
-        exit(4);
+        return 4;
     }
 
     if (length == 0) { //Пользователь запросил пароль длинны 0
         printf("\t The password cannot consist of 0 symbols\n ");
-        exit(3);
+        return 3;
     }
     if (key_count > length) {
         printf("\t Entered length doesn't fit amount of entered keys\n ");
-        exit(1);
+        return 1;
     }
     return 0;
 }
