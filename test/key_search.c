@@ -3,8 +3,17 @@
 
 CTEST(key_search, correct_input)
 {
-    char* input_str[] = {'main, -l5, -N2, -O, -y'};
-    int countN = 1;
+    char** input_str[]
+            = {input_str1[],
+               input_str2[],
+               input_str3[],
+               input_str4[],
+               input_str5[]};
+    char* input_str1[] = {main};
+    char* input_str2[] = {-l5};
+    char* input_str3[] = {-N2};
+    char* input_str4[] = {-O};
+    char* input_str5[] = { -y'; int countN = 1;
     int countc = 0;
     int countn = 0;
     int county = 0;
