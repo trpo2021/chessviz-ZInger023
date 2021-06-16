@@ -10,11 +10,7 @@ CTEST(key_search, correct_input)
     char input_str5[] = "-y";
 
     char* input_str[]
-            = {input_str1,
-               input_str2,
-               input_str3,
-               input_str4,
-               input_str5};
+            = {input_str1, input_str2, input_str3, input_str4, input_str5};
 
     int countN = 1;
     int countc = 0;
